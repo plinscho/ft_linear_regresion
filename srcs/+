@@ -1,0 +1,38 @@
+import os
+
+dict_km_price = {}
+
+def read_data(path):
+    first_line = True;
+    with open(path, 'r') as file:
+        for line in file:
+            line = line.strip() # Remove white spaces and newlines
+
+            if first_line:
+                first_line = False
+                continue
+
+            data = line.split(',')
+            if len(data) != 2:
+                print(f"Skipping invalid line: {line}")
+                continue
+            try:
+                km = data[0]
+                price = data[1]
+                dict_km_price[km] = price
+            except:
+                print(f"Error in line: {line}")
+            print("Data loaded succesfully!")
+
+def print_data():
+    print(dict_km_price)
+
+def get_input_data():
+    path = input("data file path: ")
+    if not os.path.exists(path):
+        print("Error: path does not exist.")
+        exit()
+    read_data(path)
+    print_data()
+
+get_input_data()
