@@ -1,7 +1,3 @@
-import os
-
-dict_km_price = {}
-
 def read_data(path):
     first_line = True;
     global dict_km_price
@@ -28,18 +24,3 @@ def read_data(path):
 
     dict_km_price = dict(sorted(raw_km_price.items()))
     print("Data loaded succesfully!")
-
-def print_data():
-    print(f"KM --> Price:")
-    for km, price in dict_km_price.items():
-        print(f"{km}\tkm ---> {price}€")
-
-def get_input_data():
-    path = input("data file path: ")
-    if not os.path.exists(path):
-        print("Error: path does not exist.")
-        exit()
-    read_data(path)
-    print_data()
-
-get_input_data()
