@@ -1,14 +1,3 @@
-## NOTES ##
---------------------------------------------------------------------------------
-t0, t1	            Parámetros del modelo (bias y slope)
-learning_rate	    Tamaño del paso hacia el mínimo
-MSE	                Promedio del error cuadrático (lo que se quiere minimizar)
-Gradient	        Derivadas que indican dirección de descenso
-m	                Tamaño del dataset
-Convergencia	    Cuando el error deja de cambiar (puede usar ε)
-R²	                Medida de qué tan bien el modelo se ajusta a los datos
---------------------------------------------------------------------------------
-
 This project aims to teach the fundamentals of machine learning.
 Introducing concepts like linear regresion and gradient descent,
 we can calculate optimal price and train a model with the data.
