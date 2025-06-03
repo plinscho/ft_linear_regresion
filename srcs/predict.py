@@ -1,5 +1,5 @@
 import os
-from utils import read_data, get_std_dev
+from utils import read_data
 
 """
 Theory: y = m*x + b (This is actually the price equation)
@@ -21,7 +21,7 @@ dict_km_price = {}
 class PredictPrice():
     def __init__(self, data="./data.csv"):
         # Init parameters
-        self.learning_rate = 0.01
+        self.learning_rate = 0.001
         self.t0 = 0
         self.t1 = 0
 
@@ -32,7 +32,9 @@ class PredictPrice():
         
         # Init statistics stuff 
         self.average_km = sum(self.km_raw) / len(self.km_raw)
-        self.std_dev_km = get_std_dev(self.average_km, self.km_raw)
+
+        # get_std_dev does not exitst !! self.std_dev_km = get_std_dev(self.average_km, self.km_raw)
+        self.std_dev_km = 1
         self.m = len(self.data_raw)
 
         # Scale data
@@ -66,8 +68,8 @@ def read_data(path):
                 print(f"Skipping invalid line: {line}")
                 continue
             try:
-                km = int(data[0])
-                price = int(data[1])
+                km = int(data[0] / 1000) # we need to reduce values
+                price = int(data[1] / 1000) # to have smaller errors
                 raw_km_price[km] = price
             except:
                 print(f"Error in line: {line}")
@@ -79,6 +81,7 @@ def print_data():
     print(f"KM --> Price:")
     for km, price in dict_km_price.items():
         print(f"{km}\tkm ---> {price}€")
+
 
 def get_km_user():
     miles_str = input("Write a mileage to get a price: ")
@@ -96,6 +99,7 @@ def predict_price(km):
 def main():
     #print_data()
     km = get_km_user()
+    print_data()
     predict_price(km)
 
 if __name__ == "__main__":
