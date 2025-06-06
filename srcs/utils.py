@@ -24,3 +24,9 @@ def read_data(path):
 
     dict_km_price = dict(sorted(raw_km_price.items()))
     print("Data loaded succesfully!")
+    return dict_km_price
+
+def print_data(data):
+    print(f"KM --> Price:")
+    for km, price in data.items():
+        print(f"{km}\tkm ---> {price}€")

@@ -1,5 +1,5 @@
 import os
-from utils import read_data
+from utils import read_data, print_data
 
 """
 Theory: y = m*x + b (This is actually the price equation)
@@ -57,12 +57,6 @@ def read_data(path):
     dict_km_price = dict(sorted(raw_km_price.items()))
     print("Data loaded succesfully!")
 
-def print_data():
-    print(f"KM --> Price:")
-    for km, price in dict_km_price.items():
-        print(f"{km}\tkm ---> {price}€")
-
-
 def get_km_user():
     ok = False;
     while (ok == False):
@@ -78,7 +72,7 @@ def get_km_user():
             print("Error.\nIntroduce a valid positive int")
 
 def predict_price(km):
-   print(km) 
+    print(km) 
 
 
 def main():
@@ -86,6 +80,7 @@ def main():
     km = get_km_user()
     print_data()
     predict_price(km)
+    
 
 if __name__ == "__main__":
     main()

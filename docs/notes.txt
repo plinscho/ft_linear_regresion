@@ -54,9 +54,13 @@ If we derive the MSE function, we obtain:
     t1' = t1 - a * (sum(expected - real), m times) / m * x
 
 where "a" is the learning rate and "x" are the km.
-But remeber we can also write "expected" like:
+But remeber we can also write "expected" like our "funci" function:
     
     expected price = t0 + t1 * x
+
+Now we only need to update our t0 and t1, we started at 0 but we can guess now:
+
+    t0 = 
 
 
 
