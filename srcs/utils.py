@@ -8,7 +8,7 @@ def	normalize_element(list, elem):
 
 # real_value = scaled_value ⋅ (max − min) + min
 def	denormalize_element(list, elem):
-	return ((elem * (max(list) - min(list))) + min(list))
+    return (elem * (max(list) - min(list))) + min(list)
 
 def check_data(miles, prices):
     if len(miles) != len(prices):

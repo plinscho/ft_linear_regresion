@@ -3,8 +3,7 @@
 """
 import os
 import utils
-import matplotlib as plt
-
+import matplotlib.pyplot as plt
    
 def get_path(file):
     print("Found!")
@@ -96,7 +95,7 @@ def main():
     learning_rate = 0.3
     epochs = 500
     data = read_data(get_path('data.csv'))
-    prices, miles = get_data(data)
+    miles, prices = get_data(data)
     if (utils.check_data(miles, prices)): return
 
     s_miles, s_prices = normalize_data(miles, prices)
@@ -104,7 +103,7 @@ def main():
     print(s_prices)
 
     t0, t1, t0_hist, t1_hist, loss_hist = gradient_descend(s_miles, s_prices, learning_rate, epochs)
-######################################
+    ######################################
     min_mile = min(miles)
     max_mile = max(miles)
     min_price = min(prices)
@@ -115,7 +114,7 @@ def main():
     for mile in range(int(min_mile), int(max_mile), 1000):
         norm_mile = (mile - min_mile) / (max_mile - min_mile)
         norm_price = t0 + t1 * norm_mile
-        actual_price = utils.denormalize_element(norm_price, min_price, max_price)
+        actual_price = utils.denormalize_element(prices, norm_price)
         x_plot.append(mile)
         y_plot.append(actual_price)
 
@@ -131,7 +130,7 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.show()
-#################################################
+    #################################################
     # print_data(data)
     return
 
