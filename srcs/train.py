@@ -90,7 +90,7 @@ def gradient_descend(miles :list, prices :list, learning :float, iterations):
         loss_historic.append(cost)
         t0_historic.append(t0)
         t1_historic.append(t1)
-    return t0, t1
+    return t0, t1, t0_historic, t1_historic, loss_historic
 
 def main():
     learning_rate = 0.3
@@ -103,8 +103,35 @@ def main():
     print(s_miles)
     print(s_prices)
 
-    t0, t1 = gradient_descend(s_miles, s_prices, learning_rate, epochs)
+    t0, t1, t0_hist, t1_hist, loss_hist = gradient_descend(s_miles, s_prices, learning_rate, epochs)
+######################################
+    min_mile = min(miles)
+    max_mile = max(miles)
+    min_price = min(prices)
+    max_price = max(prices)
 
+    x_plot = []
+    y_plot = []
+    for mile in range(int(min_mile), int(max_mile), 1000):
+        norm_mile = (mile - min_mile) / (max_mile - min_mile)
+        norm_price = t0 + t1 * norm_mile
+        actual_price = utils.denormalize_element(norm_price, min_price, max_price)
+        x_plot.append(mile)
+        y_plot.append(actual_price)
+
+    # Plot original data
+    plt.scatter(miles, prices, color='blue', label='Original data')
+
+    # Plot regression line
+    plt.plot(x_plot, y_plot, color='red', label='Linear regression')
+
+    plt.title("Car Price vs Mileage")
+    plt.xlabel("Mileage (in miles)")
+    plt.ylabel("Price (in currency units)")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+#################################################
     # print_data(data)
     return
 
