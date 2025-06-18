@@ -7,7 +7,7 @@ def load_thetas():
 	if not os.path.exists(path) or os.path.getsize(path) == 0:
 		print("Thetas not found for prefiction, running train.py")
 		train_path = os.path.join(os.path.dirname(__file__), "train.py")
-		subprocess.run(["py", train_path], check=True)
+		subprocess.run(["python3", train_path], check=True)
 		print("Training complete!")
 	try:
 		with open(path) as f:
