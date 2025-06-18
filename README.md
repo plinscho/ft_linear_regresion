@@ -7,6 +7,9 @@ How to use it:
     source ./srcs/make_env.sh
     python3 srcs/guess.py
 
+To see the linear regresion and data representation:
+
+    python3 srcs/guess.py --bonus
 
 
 
