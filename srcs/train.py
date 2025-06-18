@@ -1,7 +1,7 @@
 """
 
 """
-import os
+import os, sys
 import utils
 import matplotlib.pyplot as plt
    
@@ -55,6 +55,20 @@ def normalize_data(miles, prices):
 
     return (s_miles, s_prices)
 
+def denormalize_thetas(t0, t1, miles, prices):
+    min_miles = min(miles)
+    max_miles = max(miles)
+    min_prices = min(prices)
+    max_prices = max(prices)
+
+    range_miles = max_miles - min_miles
+    range_prices = max_prices - min_prices
+
+    denorm_t1 = (range_prices / range_miles) * t1
+    denorm_t0 = min_prices + range_prices * t0 - denorm_t1 * min_miles
+
+    return denorm_t0, denorm_t1
+
 def loss_function(t0 :float, t1 :float, miles, prices):
     total_error = 0.0
     for mile, price in zip(miles, prices):
@@ -89,28 +103,18 @@ def gradient_descend(miles :list, prices :list, learning :float, iterations):
         loss_historic.append(cost)
         t0_historic.append(t0)
         t1_historic.append(t1)
-    return t0, t1, t0_historic, t1_historic, loss_historic
+    return t0, t1
 
-def main():
-    learning_rate = 0.3
-    epochs = 500
-    data = read_data(get_path('data.csv'))
-    miles, prices = get_data(data)
-    if (utils.check_data(miles, prices)): return
+def write_theta(t0 :float, t1: float):
+    with open("docs/results.txt", "w") as f:
+        f.write("{0}, {1}".format(t0, t1))
 
-    s_miles, s_prices = normalize_data(miles, prices)
-    print(s_miles)
-    print(s_prices)
-
-    t0, t1, t0_hist, t1_hist, loss_hist = gradient_descend(s_miles, s_prices, learning_rate, epochs)
-    ######################################
-    min_mile = min(miles)
-    max_mile = max(miles)
-    min_price = min(prices)
-    max_price = max(prices)
-
+def print_results(miles: list, prices :list, t0, t1):
     x_plot = []
     y_plot = []
+    min_mile = min(miles)
+    max_mile = max(miles)
+
     for mile in range(int(min_mile), int(max_mile), 1000):
         norm_mile = (mile - min_mile) / (max_mile - min_mile)
         norm_price = t0 + t1 * norm_mile
@@ -123,15 +127,30 @@ def main():
 
     # Plot regression line
     plt.plot(x_plot, y_plot, color='red', label='Linear regression')
-
     plt.title("Car Price vs Mileage")
     plt.xlabel("Mileage (in miles)")
-    plt.ylabel("Price (in currency units)")
+    plt.ylabel("Price")
     plt.legend()
     plt.grid(True)
     plt.show()
-    #################################################
-    # print_data(data)
-    return
 
-main()
+def __main__(print: bool):
+    learning_rate = 0.5
+    epochs = 500
+    data = read_data(get_path('data.csv'))
+    miles, prices = get_data(data)
+    if (utils.check_data(miles, prices)): return
+
+    s_miles, s_prices = normalize_data(miles, prices)
+
+    t0, t1 = gradient_descend(s_miles, s_prices, learning_rate, epochs)
+    dt0, dt1 = denormalize_thetas(t0, t1, miles, prices)
+    write_theta(dt0, dt1)
+    if print == True:
+        print_results(miles, prices, t0, t1)
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "--bonus":
+        __main__(True)
+    else:
+        __main__(False)
