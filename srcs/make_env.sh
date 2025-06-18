@@ -5,8 +5,8 @@ python3 -m pip install --user --upgrade pip
 
 # Instalar dependencias necesarias del sistema si estás en Debian/Ubuntu
 if command -v apt-get &> /dev/null; then
-    sudo apt-get update
-    sudo apt-get install -y python3-venv python3-tk
+    apt-get update
+    apt-get install -y python3-venv python3-tk
 fi
 
 # Crear entorno virtual en la carpeta raíz del proyecto

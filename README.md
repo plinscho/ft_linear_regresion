@@ -1,3 +1,12 @@
+This is an exercise to understand the foundations of machine learning,
+it grabs the data from "data.csv", normalizes it and calculates a linear regresion
+to guess a price given a mileage.
+
+How to use it:
+
+
+
+
 This project aims to teach the fundamentals of machine learning.
 Introducing concepts like linear regresion and gradient descent,
 we can calculate optimal price and train a model with the data.
