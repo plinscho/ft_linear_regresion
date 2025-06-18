@@ -3,6 +3,9 @@ it grabs the data from "data.csv", normalizes it and calculates a linear regresi
 to guess a price given a mileage.
 
 How to use it:
+    source ./srcs/make_env.sh
+    python3 srcs/guess.py
+
 
 
 
