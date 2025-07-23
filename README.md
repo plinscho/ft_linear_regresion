@@ -18,7 +18,7 @@ This project aims to teach the fundamentals of machine learning.
 Introducing concepts like linear regresion and gradient descent,
 we can calculate optimal price and train a model with the data.
 
-We need to find "funci", this will be our function:
+We need to find "y", this will be our function:
 
     y = t0 + t1 * x 
 
@@ -32,7 +32,7 @@ GOOD (the error) this something is compared to reality
 
     cost function / error = estimated price - predicted price
 
-We can try and give funci some values:
+We can try and give y some values:
 
     km = 100000
     real price € = 5000
@@ -47,7 +47,7 @@ This is called MSE (Mean Squared Error) and we want it as close to 0 as possible
 
     MSE = sum((expected - real)^2) / m
 
-We will use the error to adjust "funci", the slope o
+We will use the error to adjust "y", the slope o
 And because we can't just try for infinite values, we will use the gradient
 descent. This way we will get t0 and t1 faster than random.
 And because we want it to be the minium possible, 
