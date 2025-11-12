@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 from utils import get_mileage
 
@@ -24,7 +25,12 @@ def make_prediction(mileage, t0, t1):
 	return t0 + mileage * t1
 
 
-def guess():
+def guess(show_bonus=False):
+	if show_bonus:
+		print("Running training with visualization!")
+		train_path = os.path.join(os.path.dirname(__file__), "train.py")
+		subprocess.run(["python3", train_path, "--bonus"], check=True)
+
 	miles = get_mileage()
 	t0 = 0
 	t1 = 0
@@ -33,4 +39,6 @@ def guess():
 	print(f"t0: {t0}, t1: {t1}")
 	print(f"Mileage: {miles}\t| Price: {prediction}")
 
-guess()
+if __name__ == "__main__":
+    show_bonus = len(sys.argv) > 1 and sys.argv[1] == "--bonus"
+    guess(show_bonus)

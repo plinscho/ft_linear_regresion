@@ -3,6 +3,8 @@
 """
 import os, sys
 import utils
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
    
 def get_path(file):
@@ -132,7 +134,13 @@ def print_results(miles: list, prices :list, t0, t1):
     plt.ylabel("Price")
     plt.legend()
     plt.grid(True)
-    plt.show()
+    
+    # Save plot instead of showing it
+    output_path = os.path.join(os.path.dirname(__file__), "../docs/regression_plot.png")
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    print(f"Plot saved to: {output_path}")
+    plt.close()  # Close the figure to free memory
 
 def __main__(print: bool):
     learning_rate = 0.5

@@ -7,18 +7,23 @@ if command -v apt-get &> /dev/null; then
     apt-get install -y python3-venv python3-tk
 fi
 
+sleep 3
+
 python3 -m venv ./virtual_env
+
+sleep 2
+
 source ./virtual_env/bin/activate
 
 if [[ "$VIRTUAL_ENV" != "" ]]; then
-    echo "✅ Entorno virtual activado correctamente."
+    echo "Virtual env activated."
     if [[ -f "srcs/requirements.txt" ]]; then
         pip install -r srcs/requirements.txt
     else
-        echo "⚠️  requirements.txt no encontrado en srcs/"
+        echo "requirements.txt not found!"
     fi
 else
-    echo "❌ Fallo al activar entorno virtual."
-    echo "ℹ️  Usa: source srcs/make_env.sh para activar el entorno en tu shell."
+    echo "[ERROR] Failure at making virtual env."
+    echo "[USAGE] source srcs/make_env.sh (To activate venv)."
 fi
 
