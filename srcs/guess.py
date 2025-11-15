@@ -6,10 +6,8 @@ from utils import get_mileage
 def load_thetas():
 	path = "docs/results.txt"
 	if not os.path.exists(path) or os.path.getsize(path) == 0:
-		print("Thetas not found for prefiction, running train.py")
-		train_path = os.path.join(os.path.dirname(__file__), "train.py")
-		subprocess.run(["python3", train_path], check=True)
-		print("Training complete!")
+		print("Thetas not found for prediction.")
+		return 0,0
 	try:
 		with open(path) as f:
 			line = f.readline().strip().split(',')
