@@ -1,29 +1,18 @@
 #!/bin/bash
 
+# Exit on any error
+set -e
+
+echo "Upgrading pip..."
 python3 -m pip install --user --upgrade pip
 
-if command -v apt-get &> /dev/null; then
-    apt-get update
-    apt-get install -y python3-venv python3-tk
-fi
-
-sleep 3
-
+echo "Creating virtual environment..."
 python3 -m venv ./virtual_env
 
-sleep 2
-
-source ./virtual_env/bin/activate
-
-if [[ "$VIRTUAL_ENV" != "" ]]; then
-    echo "Virtual env activated."
-    if [[ -f "srcs/requirements.txt" ]]; then
-        pip install -r srcs/requirements.txt
-    else
-        echo "requirements.txt not found!"
-    fi
-else
-    echo "[ERROR] Failure at making virtual env."
-    echo "[USAGE] source srcs/make_env.sh (To activate venv)."
-fi
-
+echo "Virtual environment created successfully!"
+echo "To activate it and install requirements, run:"
+echo "  source ./virtual_env/bin/activate"
+echo "  pip install -r srcs/requirements.txt"
+echo ""
+echo "To deactivate later, simply run:"
+echo "  deactivate"
